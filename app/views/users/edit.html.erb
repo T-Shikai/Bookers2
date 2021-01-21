@@ -1,0 +1,27 @@
+<div class="user-error-message">
+    <% if @user.errors.any? %>
+        <% @user.errors.full_messages.each do |message| %>
+            <%= message %>
+        <% end %>
+    <% end %>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="user-info col-md-6">
+            <h1 class="border-bottom">Editing user info</h1>
+            <%= form_with model:@user, local:true do |f| %>
+                <h4>Name</h4>
+                <%= f.text_field :name, autofocus:true %>
+                <div class="my-4">
+                    <h4>Image</h4>
+                    <%= attachment_image_tag @user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %>
+                    <%= f.attachment_field :profile_image %>
+                </div>
+                <h4>Introduction</h4>
+                <%= f.text_area :introduction, autofocus:true, class: "form-control" %></br>
+                <%= f.submit "Update User", class: "btn btn-secondary" %>
+            <% end %>
+        </div>
+    </div>
+</div>

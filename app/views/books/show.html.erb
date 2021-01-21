@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="row">
+    <div class="side col-md-3">
+      <%= render 'books/side' %>
+    </div>
+    <div class="col-md-8 offset-md-1 w-75">
+      <h1 class="border-bottom">Book detail</h1>
+      <div class="book-detail">
+        <%= link_to user_path(@user.id) do %>
+          <%= attachment_image_tag @user, :profile_image, format: 'jpeg', fallback: "no_image.jpg", size: "60x60" %></br>
+          <%= @user.name %>
+        <% end %>
+        <div class="detail-content border border-success rounded pt-2">
+          <h4>Book title: <%= @book.title %></h4>
+          <h4>Opinion: <%= @book.body %></h4>
+        </div>
+      </div>
+      <div class="favorite mt-4">
+        <span class="favorite-bottun">
+          <% if Favorite.find_by(user_id: current_user.id, book_id: @book.id) %>
+            <%= link_to book_favorites_path(@book.id), method: :delete do %>
+              <i class="fas fa-heart"></i>
+            <% end %>
+          <% else %>
+            like👉
+            <%= link_to book_favorites_path(@book.id), method: :post do %>
+              <i class="far fa-heart"></i>
+            <% end %>
+          <% end %>
+        </span>
+        <span class="count">
+          <% if Favorite.where(book_id: @book).count != 0 %>
+            <%= Favorite.where(book_id: @book).count %>
+          <% end %>
+        </span>
+        <div class="who-likes">
+          <span class="text-white bg-secondary">Who likes? ...</span>
+          <span class="bg-light text-dark ml-2">
+            <% Favorite.where(book_id: @book).each do |favo| %>
+              <i class="fas fa-heart"></i><%= User.find_by(id: favo.user_id).name %>
+            <% end %>
+          </span>
+        </div>
+      </div>
+      <div class="edit-delete mt-1">
+        <% if current_user == @user %>
+          <%= link_to "Edit", edit_book_path(@book.id), class: "btn btn-outline-secondary" %>
+          <span class="ml-2">
+            <%= link_to "Destroy", book_path(@book.id), method: :delete, class: "btn btn-danger" %>
+          </span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

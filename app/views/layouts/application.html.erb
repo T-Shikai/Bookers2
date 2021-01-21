@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bookers2</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <header class="shadow-sm">
+      <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+        <div class="top-menu justify-content-end">
+          <div class="logo">
+            <% if current_user %>
+              <a class="navbar-brand py-2 ml-5"><i class="fas fa-atlas"></i>Bookers</a>
+            <% else %>
+              <a class="navbar-brand p-3 ml-5" href="/"><i class="fas fa-atlas"></i>Bookers</a>
+            <% end %>
+          </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNav" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse" id="topNav">
+            <ul class="nav">
+              <% if user_signed_in? %>
+                <li class="nav-item ml-4">
+                  <%= link_to user_path(current_user.id) do %>
+                    <p><i class="fas fa-home"></i>Home</p>
+                  <% end %>
+                </li>
+                <li class="nav-item ml-4">
+                  <%= link_to users_path do%>
+                    <p><i class="fas fa-users"></i>Users</p>
+                  <% end %>
+                </li>
+                <li class="nav-item ml-4">
+                  <%= link_to books_path do %>
+                    <p><i class="fas fa-book-open"></i>Books</p>
+                  <% end %>
+                </li>
+                <li class="nav-item ml-4">
+                  <%= link_to destroy_user_session_path, method: :delete do %>
+                    <p><i class="fas fa-sign-out-alt"></i>logout</p>
+                  <% end %>
+                </li>
+              <% else %>
+                <li class="nav-item">
+                  <%= link_to root_path do %>
+                    <p><i class="fas fa-home"></i>Home</p>
+                  <% end %>
+                </li>
+                <li class="nav-item ml-3">
+                  <%= link_to "/home/about" do %>
+                    <p><i class="fas fa-link"></i>About</p>
+                  <% end %>
+                </li>
+                <li class="nav-item ml-3">
+                  <%= link_to new_user_registration_path do %>
+                   <p><i class="fas fa-user-plus"></i>sign up</p>
+                  <% end %>
+                <li class="nav-item ml-3">
+                  <%= link_to new_user_session_path do %>
+                    <p><i class="fas fa-sign-in-alt"></i>login</p>
+                  <% end %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <div class="flash">
+      <% if flash[:notice] %>
+        <%= flash[:notice] %>
+      <% end %>
+    </div>
+    <div class="p-3">
+      <%= yield %>
+    </div>
+  </body>
+</html>

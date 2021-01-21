@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="row">
+    <div class="side col-md-3">
+      <%= render 'books/side' %>
+    </div>
+    <div class="book-table col-md-8 offset-md-1 w-75">
+      <% if current_user == @user %>
+        <h1> Books you recommend </h1>
+      <% else %>
+        <h1>Books <%= @user.name %> recommends</h1>
+      <% end %>
+      <%= render 'books/list', books: @books %>
+    </div>
+  </div>
+</div>
+

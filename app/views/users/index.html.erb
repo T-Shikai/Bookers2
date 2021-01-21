@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="row">
+    <div class="side col-md-3">
+      <%= render 'books/side' %>
+    </div>
+    <div class="col-md-8 offset-md-1 border w-75">
+      <h1 class="ml-2">Users</h1>
+      <div class="table table-striped">
+        <table>
+          <thead>
+            <tr>
+              <td>image</td>
+              <td>name</td>
+              <td class="w-75"></td>
+            </tr>
+          </thead>
+          <tbody>
+            <% @users.each do |user| %>
+              <tr>
+                <td><%= attachment_image_tag user, :profile_image, format: 'jpeg', fallback: "no_image.jpeg", size: "60x60" %></td>
+                <td><%= user.name %></td>
+                <td class="align-middle text-right"><%= link_to "Show", user_path(user.id), class: "btn btn-secondary" %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--co-md-3-->

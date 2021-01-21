@@ -1,0 +1,25 @@
+<div class="book-error-message">
+  <%= render 'books/error', book: @book %>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h1 class="border-bottom">Editing Book</h1>
+      <div class="update-book">
+        <%= form_with model:@book, local:true do |f| %>
+          <h4>Title</h4>
+          <%= f.text_field :title, autofocus: true, class: "form-control" %>
+          <div class="mt-4">
+          <h4>Opinion</h4>
+            <%= f.text_area :body, autofocus: true, class: "form-control" %></br>
+          </div>
+          <%= f.submit 'Update Book', class: "btn btn-success" %>
+        <% end %>
+      </div>
+      <div class="link">
+        <%= link_to "Show", book_path(@book.id) %> | <%= link_to "Back", books_path %>
+      </div>
+    </div>
+  </div>
+</div>
