@@ -18,11 +18,12 @@
         <td><%= book.body %></td>
         <td>
           <% if Favorite.where(book_id: book.id).count != 0 %>
-            <% if Favorite.where(book_id: book.id).count == 1 %>
-              1 like
-            <% else %>
-              <%= Favorite.where(book_id: book.id).count %> likes
-            <% end %>
+            <%= Favorite.where(book_id: book.id).count %> <i class="fas fa-heart"></i>
+          <% end %>
+        </td>
+        <td>
+          <% if Comment.where(book_id: book.id).count != 0 %>
+            <%= Comment.where(book_id: book.id).count %><i class="fas fa-comments"></i>
           <% end %>
         </td>
       </tr>

@@ -5,4 +5,5 @@ class Book < ApplicationRecord
   validates :body, {presence: true, length: {maximum: 200}}
   attachment :profile_image
   has_many :favorites, dependent: :destroy
+  has_many :comments, dependent: :destroy
 end
