@@ -2,8 +2,8 @@
   <thead>
     <tr>
       <td></td>
-      <td>Title</td>
-      <td>Opinion</td>
+      <td class="font-weight-bold">Title</td>
+      <td class="font-weight-bold">Opinion</td>
     </tr>
   </thead>
   <tbody>
@@ -15,17 +15,17 @@
           <% end %>
         </td>
         <td><%= link_to "#{book.title}", book_path(book.id) %> </td>
-        <td><%= book.body %></td>
-        <td>
-          <% if Favorite.where(book_id: book.id).count != 0 %>
-            <%= Favorite.where(book_id: book.id).count %> <i class="fas fa-heart"></i>
-          <% end %>
-        </td>
-        <td>
-          <% if Comment.where(book_id: book.id).count != 0 %>
-            <%= Comment.where(book_id: book.id).count %><i class="fas fa-comments"></i>
-          <% end %>
-        </td>
+        <td class="ml-5"><%= book.body %></td>
+        <!--<td>-->
+        <!--  <% if Favorite.where(book_id: book.id).count != 0 %>-->
+        <!--    <%= Favorite.where(book_id: book.id).count %> <i class="fas fa-heart"></i>-->
+        <!--  <% end %>-->
+        <!--</td>-->
+        <!--<td>-->
+        <!--  <% if Comment.where(book_id: book.id).count != 0 %>-->
+        <!--    <%= Comment.where(book_id: book.id).count %><i class="fas fa-comments"></i>-->
+        <!--  <% end %>-->
+        <!--</td>-->
       </tr>
     <% end %>
 
