@@ -8,4 +8,8 @@ Rails.application.routes.draw do
     resources :comments, only: [:create, :destroy]
   end
   resources :users, only: [:show, :edit, :update, :index]
+  get 'users/:id/follows' => 'users#follows', as: 'user_follows'
+  get 'users/:id/followers' => 'users#followers', as: 'user_followers'
+  post 'follow/:id' => 'relationships#follow', as: 'follow'
+  post 'unfollow/:id' => 'relationships#unfollow', as: 'unfollow'
 end

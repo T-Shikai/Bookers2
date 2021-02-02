@@ -11,7 +11,10 @@
             <tr>
               <td class="font-weight-bold">image</td>
               <td class="pl-5 font-weight-bold">name</td>
-              <td class="w-75"></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
             </tr>
           </thead>
           <tbody>
@@ -19,7 +22,18 @@
               <tr>
                 <td><%= attachment_image_tag user, :profile_image, format: 'jpeg', fallback: "no_image.jpeg", size: "60x60" %></td>
                 <td class="pl-5"><%= user.name %></td>
-                <td class="pr-5 align-middle text-right"><%= link_to "Show", user_path(user.id), class: "btn btn-secondary" %></td>
+                <td>フォロー数:<%= Relationship.where(follower: user).count %></td>
+                <td>フォロワー数:<%= Relationship.where(followed: user).count %></td>
+                <td>
+                  <% if current_user != user %>
+                    <% if current_user.following?(user) %>
+                      <%= link_to 'フォロー解除', unfollow_path(user.id), method: :post %>
+                    <% else %>
+                      <%= link_to 'フォローする', follow_path(user.id), method: :post %>
+                    <% end %>
+                  <% end %>
+                </td>
+                <td class="align-middle text-right"><%= link_to "Show", user_path(user.id), class: "btn btn-secondary" %></td>
               </tr>
             <% end %>
           </tbody>

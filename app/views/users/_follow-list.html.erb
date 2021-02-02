@@ -1,0 +1,28 @@
+<div class="table table-striped">
+  <% if users.count != 0 %>
+    <table class="w-75">
+      <thead>
+        <tr>
+          <td class="font-weight-bold">image</td>
+          <td class="pl-5 font-weight-bold">name</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </thead>
+      <tbody>
+        <% users.each do |user| %>
+          <tr>
+            <td><%= attachment_image_tag user, :profile_image, format: 'jpeg', fallback: "no_image.jpeg", size: "60x60" %></td>
+            <td class="pl-5"><%= user.name %></td>
+            <td>フォロー数:<%= Relationship.where(follower: user).count %></td>
+            <td>フォロワー数:<%= Relationship.where(followed: user).count %></td>
+            <td class="align-middle text-right"><%= link_to "Show", user_path(user.id), class: "btn btn-secondary" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    ユーザーはいません
+  <% end %>
+</div>
