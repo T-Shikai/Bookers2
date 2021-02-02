@@ -16,16 +16,30 @@
         </td>
         <td><%= link_to "#{book.title}", book_path(book.id) %> </td>
         <td class="ml-5"><%= book.body %></td>
-        <!--<td>-->
-        <!--  <% if Favorite.where(book_id: book.id).count != 0 %>-->
-        <!--    <%= Favorite.where(book_id: book.id).count %> <i class="fas fa-heart"></i>-->
-        <!--  <% end %>-->
-        <!--</td>-->
-        <!--<td>-->
-        <!--  <% if Comment.where(book_id: book.id).count != 0 %>-->
-        <!--    <%= Comment.where(book_id: book.id).count %><i class="fas fa-comments"></i>-->
-        <!--  <% end %>-->
-        <!--</td>-->
+        <td>
+          <span class="favorite-button">
+            <% if Favorite.find_by(user_id: current_user.id, book_id: book.id) %>
+              <%= link_to book_favorites_path(book.id), method: :delete do %>
+                <i class="fas fa-heart"></i>
+              <% end %>
+            <% else %>
+              like👉
+              <%= link_to book_favorites_path(book.id), method: :post do %>
+                <i class="far fa-heart"></i>
+              <% end %>
+            <% end %>
+          </span>
+          <span class="count">
+            <% if Favorite.where(book_id: book).count != 0 %>
+              <%= Favorite.where(book_id: book).count %>
+            <% end %>
+          </span>
+        </td>
+        <td>
+          <% if Comment.where(book_id: book.id).count != 0 %>
+            <%= Comment.where(book_id: book.id).count %><i class="fas fa-comments"></i>
+          <% end %>
+        </td>
       </tr>
     <% end %>
 
