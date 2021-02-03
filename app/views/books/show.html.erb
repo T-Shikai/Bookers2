@@ -27,25 +27,10 @@
             </span>
           <% end %>
         </div>
-
       </div>
       <div class="favorite mt-3">
         <span class="favorite-button">
-          <% if Favorite.find_by(user_id: current_user.id, book_id: @book.id) %>
-            <%= link_to book_favorites_path(@book.id), method: :delete do %>
-              <i class="fas fa-heart"></i>
-            <% end %>
-          <% else %>
-            like👉
-            <%= link_to book_favorites_path(@book.id), method: :post do %>
-              <i class="far fa-heart"></i>
-            <% end %>
-          <% end %>
-        </span>
-        <span class="count">
-          <% if Favorite.where(book_id: @book).count != 0 %>
-            <%= Favorite.where(book_id: @book).count %>
-          <% end %>
+          <%= render "favorites/favorite-btn", book: @book, comments: @comments %>
         </span>
         <span class="who-likes ml-4">
           <span class="text-white bg-secondary">Who likes? ...</span>
@@ -57,32 +42,7 @@
         </span>
       </div>
       <div class="comments mt-5">
-        <div class="comment-body">
-          <h3 class="border-bottom w-50">comments</h3>
-          <% if Comment.find_by(book_id: params[:id]) %>
-            <% Comment.where(book_id: params[:id]).each do |comment| %>
-              <table>
-                <tr>
-                  <td><%= attachment_image_tag comment.user, :profile_image, format: 'jpeg', fallback:"no_image.jpg", size: "30x30" %>
-                      <%= link_to comment.user.name, user_path(comment.user.id) %></td>
-                  <td class="w-75 border-bottom">: <%= comment.body %></td>
-                  <% if current_user == comment.user || current_user == @book.user %>
-                    <td><%= link_to "destroy", book_comment_path(@book.id, comment.id), method: :delete, class:"btn btn-outline-warning btn-sm" %></td>
-                  <% end %>
-                </tr>
-              </table>
-            <% end %>
-          <% else %>
-            <p class="text-info">.....No comment yet.....</p>
-          <% end %>
-        </div>
-        <div class="new-comment mt-3">
-          <%= form_with(model:[@book, @comment], local: true) do |f| %>
-            <label for="inputComment">Send a new comment:</label></br>
-            <%= f.text_field :body, class:"w-75", id: "inputComment", placeholder:"your comment" %>
-            <%= f.submit "Send", class:"btn btn-light btn-sm mb-1" %>
-          <% end %>
-        </div>
+        <%= render 'comments/comment', book: @book, comments: @comments, comment: @comment %>
       </div>
     </div>
   </div>

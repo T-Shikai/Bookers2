@@ -28,6 +28,7 @@ class BooksController < ApplicationController
   def show
     @book = Book.find(params[:id])
     @user = User.find_by(id: @book.user_id)
+    @comments = Comment.where(book_id: params[:id])
     @comment = Comment.new
   end
 

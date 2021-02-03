@@ -1,0 +1,26 @@
+<div class="comment-body">
+  <h3 class="border-bottom w-50">comments</h3>
+    <% if comments.count != 0 %>
+      <% comments.each do |comment| %>
+        <table>
+          <tr id="comment-<%= comment.id %>">
+            <td><%= attachment_image_tag comment.user, :profile_image, format: 'jpeg', fallback:"no_image.jpg", size: "30x30" %>
+                <%= link_to comment.user.name, user_path(comment.user.id) %></td>
+            <td class="w-75 border-bottom">: <%= comment.body %></td>
+            <% if current_user == comment.user || current_user == book.user %>
+              <td><%= link_to "destroy", book_comment_path(book.id, comment.id), method: :delete, remote: true, class:"btn btn-outline-warning btn-sm" %></td>
+            <% end %>
+          </tr>
+        </table>
+      <% end %>
+    <% else %>
+      <p class="text-info">.....No comment yet.....</p>
+    <% end %>
+</div>
+<div class="new-comment mt-3">
+  <%= form_with(model:[book, comment], remote: true) do |f| %>
+    <label for="inputComment">Send a new comment:</label></br>
+    <%= f.text_field :body, class:"w-75", id: "inputComment", placeholder:"your comment" %>
+    <%= f.submit "Send", class:"btn btn-light btn-sm mb-1" %>
+  <% end %>
+</div>

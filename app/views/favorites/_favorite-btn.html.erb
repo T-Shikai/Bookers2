@@ -1,0 +1,13 @@
+<% if Favorite.find_by(user_id: current_user.id, book_id: book.id) %>
+  <%= link_to book_favorites_path(book.id), method: :delete, remote: true do %>
+    <i class="fas fa-heart"></i>
+  <% end %>
+<% else %>
+  like👉
+  <%= link_to book_favorites_path(book.id), method: :post, remote: true do %>
+    <i class="far fa-heart"></i>
+  <% end %>
+<% end %>
+<% if Favorite.where(book_id: book).count != 0 %>
+  <%= Favorite.where(book_id: book).count %>
+<% end %>
