@@ -18,6 +18,20 @@
         </div>
 
         <div class="field">
+          <%= f.label :postal_code %><br />
+          <%= f.text_field :postal_code, autofocus: true, class:"postcode", id: "address_zipcode" %>
+        </div>
+
+        <div class="field">
+          <%= f.label :prefecture_code %><br />
+          <%= f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :name, :name, autofocus: true, class:"address" %><br />
+          <%= f.label :city %><br />
+          <%= f.text_field :city, autofocus: true, class:"address", id: "address_city" %><br />
+          <%= f.label :street %><br />
+          <%= f.text_field :street, autofocus: true, class:"address", id: "address_street" %>
+        </div>
+
+        <div class="field">
           <%= f.label :password %>
           <% if @minimum_password_length %>
           <em>(<%= @minimum_password_length %> characters minimum)</em>
@@ -30,7 +44,7 @@
           <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
         </div>
 
-        <div class="actions mt-1">
+        <div class="actions mt-3">
           <%= f.submit "Sign up", class: "btn btn-success" %>
         </div>
       <% end %>
