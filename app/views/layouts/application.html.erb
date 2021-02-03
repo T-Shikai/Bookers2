@@ -72,7 +72,16 @@
         </div>
       </nav>
     </header>
-
+    <div class="searching d-flex justify-content-center">
+      <% if current_user %>
+        <%= form_with url: search_path, method: :get, local: true do |f| %>
+          <%= f.text_field 'search[content]' %>
+          <%= f.select 'search[model]', options_for_select({"User" => "user", "Book" => "book"}) %>
+          <%= f.select 'search[how]', options_for_select({"完全一致" => "match", "前方一致" => "forward", "後方一致" => "backward", "部分一致" => "partial"}) %>
+          <%= f.submit :検索 %>
+        <% end %>
+      <% end %>
+    </div>
     <div class="flash">
       <% if flash[:notice] %>
         <%= flash[:notice] %>
