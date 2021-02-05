@@ -1,8 +1,9 @@
 class NotificationMailer < ApplicationMailer
-  default from: 'tatsuroshikai@gmail.com'
+  default from: ENV['MAIL_ADDRESS']
 
-  def complete_mail
-    mail(subject: "COMPLETE join your address", to: 'tatsuroshikai@gmail.com')
+  def complete_mail(user)
+    @user = user
+    mail(subject: "COMPLETE join your address", to: @user.email)
   end
 
 end
