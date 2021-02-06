@@ -6,4 +6,12 @@ class NotificationMailer < ApplicationMailer
     mail(subject: "COMPLETE join your address", to: @user.email)
   end
 
+  def batch_mail(user)
+    @user = user
+    mail(subject: "本読んでますか！？", to: @user.email)
+  end
+  
+
+
+
 end
