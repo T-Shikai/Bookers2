@@ -1,0 +1,11 @@
+<div class="who-chattiong">
+  <h1>
+  参加者...
+  <% @entries.each do |e| %>
+    <i class="fas fa-user"></i><%= e.user.name %>
+  <% end %>
+  </h1>
+</div>
+<div class="chatting">
+  <%= render 'messages/message', messages: @messages, message: @message, room: @room %>
+</div>

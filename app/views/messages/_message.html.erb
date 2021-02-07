@@ -1,0 +1,22 @@
+<div class="chat-messages">
+    <% if messages.present? %>
+      <% messages.each do |message| %>
+        <%= message.user.name %>
+        「<%= message.content %>」
+        <% if current_user == message.user %>
+          <%= link_to 'delete', message_path(message.id), method: :delete, remote: true %>
+        <% end %>
+        <br />
+      <% end %>
+    <% else %>
+      <p class="text-info">...No message yet...</p>
+    <% end %>
+  </div>
+  <div class="send-message">
+    <%= form_with model: message, remote: true do |f| %>
+      <%= f.text_field :content %>
+      <%= f.hidden_field :room_id, :value => room.id %>
+      <br>
+      <%= f.submit "投稿する" %>
+    <% end %>
+  </div>

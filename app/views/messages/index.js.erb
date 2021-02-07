@@ -1,0 +1,2 @@
+$('.chatting').html("<%= j(render 'messages/message', messages: @messages, message: @message, room: @room) %>");
+$(".text_field").val("");

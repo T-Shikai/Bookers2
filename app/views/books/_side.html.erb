@@ -3,7 +3,7 @@
     <% if @user && @user != current_user %>
       <div class="user-info">
         <h2>User info</h2>
-        <%= attachment_image_tag @user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %>
+        <%= attachment_image_tag @user, :profile_image, format: 'jpeg', fallback: "no_image.jpg", size: "100x100" %>
         <h5 class="border-top mt-3 pt-1">name: <%= @user.name %> </h5>
         <h5 class="border-top pt-1">introduction: <%= @user.introduction %></h5>
         <h5 class="border-top pt-1">
@@ -26,10 +26,22 @@
           <%= link_to 'フォローする', follow_path(@user.id), method: :post, class: 'btn btn-success' %>
         <% end %>
       </div>
+      <div class="start-chat mt-2">
+        <% if @isRoom == true %>
+        　<%= link_to 'チャットへ', room_path(@roomId) %>
+        <% else %>
+          <%= form_with model: @room do |f| %>
+            <%= fields_for @user_room do |e| %>
+              <%= e.hidden_field :user_id, :value => @user.id %>
+            <% end %>
+            <%= f.submit "チャットを始める"%>
+          <% end %>
+        <% end %>
+      </div>
     <% else %>
       <div class="user-info">
         <h2>User info</h2>
-        <%= attachment_image_tag current_user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %>
+        <%= attachment_image_tag current_user, :profile_image, format: 'jpeg', fallback: "no_image.jpg", size: "100x100" %>
         <h5 class="border-top mt-3 pt-1">name: <%= current_user.name %> </h5>
         <h5 class="border-top pt-1">introduction: <%= current_user.introduction %></h5>
         <h5 class="border-top pt-1">
