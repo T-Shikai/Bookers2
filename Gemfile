@@ -72,6 +72,7 @@ gem 'jquery-rails'
 gem 'font-awesome-sass', '~> 5.13'
 gem 'dotenv-rails'
 gem 'jp_prefecture'
+gem 'slim-rails'
 gem 'whenever', require: false
 group :production do
   gem 'mysql2'
